@@ -1,0 +1,777 @@
+/* ==========================================================================
+   CURRÍCULO PROFISSIONAL DE ALTO IMPACTO
+   David dos Santos Cruz Rodrigues
+   Desenvolvido com melhores práticas de UI/UX, Acessibilidade e ATS-friendly
+   ========================================================================== */
+
+:root {
+    /* Paleta de Cores Moderna e Elegante */
+    --primary: #0f172a;          /* Slate 900 - Textos principais e títulos fortes */
+    --primary-light: #1e293b;    /* Slate 800 */
+    --accent: #2563eb;           /* Azul Royal contemporâneo */
+    --accent-dark: #1d4ed8;      /* Azul Royal escuro */
+    --accent-subtle: #eff6ff;    /* Fundo suave azul */
+    --accent-border: #bfdbfe;
+    
+    --text-main: #334155;        /* Slate 700 - Leitura confortável */
+    --text-muted: #64748b;       /* Slate 500 */
+    --text-subtle: #94a3b8;      /* Slate 400 */
+    
+    --bg-page: #f1f5f9;          /* Fundo da tela de visualização */
+    --bg-sheet: #ffffff;         /* Fundo da folha do currículo */
+    --bg-card: #f8fafc;          /* Fundo dos cartões e caixas */
+    --border-color: #e2e8f0;     /* Linhas sutis */
+    --border-highlight: #cbd5e1;
+    
+    /* Tipografia */
+    --font-heading: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+    --font-body: 'Inter', system-ui, -apple-system, sans-serif;
+    
+    /* Sombras e Bordas */
+    --radius-sm: 6px;
+    --radius-md: 10px;
+    --radius-lg: 16px;
+    --radius-full: 9999px;
+    --shadow-sheet: 0 10px 25px -5px rgba(15, 23, 42, 0.08), 0 8px 10px -6px rgba(15, 23, 42, 0.04);
+    --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+}
+
+/* Reset Básico */
+*, *::before, *::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: var(--font-body);
+    font-size: 14px;
+    line-height: 1.55;
+    color: var(--text-main);
+    background-color: var(--bg-page);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+/* ==========================================================================
+   BARRA DE AÇÕES (TOPO)
+   ========================================================================== */
+.action-bar {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: rgba(255, 255, 255, 0.94);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border-color);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+}
+
+.action-bar-container {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 12px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 16px;
+    flex-wrap: wrap;
+}
+
+.action-info {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.badge-status {
+    background: #ecfdf5;
+    color: #065f46;
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    padding: 4px 10px;
+    border-radius: var(--radius-full);
+    border: 1px solid #a7f3d0;
+    display: inline-flex;
+    align-items: center;
+}
+
+.badge-status::before {
+    content: '';
+    display: inline-block;
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background-color: #10b981;
+    margin-right: 6px;
+}
+
+.hint-text {
+    font-size: 12px;
+    color: var(--text-muted);
+}
+
+.action-buttons {
+    display: flex;
+    gap: 10px;
+}
+
+.btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-family: var(--font-heading);
+    font-size: 13px;
+    font-weight: 600;
+    padding: 8px 16px;
+    border-radius: var(--radius-sm);
+    cursor: pointer;
+    border: 1px solid transparent;
+    transition: all 0.2s ease;
+}
+
+.btn-secondary {
+    background: #ffffff;
+    color: var(--primary);
+    border-color: var(--border-color);
+}
+
+.btn-secondary:hover {
+    background: var(--bg-card);
+    border-color: var(--border-highlight);
+}
+
+.btn-primary {
+    background: var(--accent);
+    color: #ffffff;
+}
+
+.btn-primary:hover {
+    background: var(--accent-dark);
+    box-shadow: 0 4px 12px rgba(37, 99, 235, 0.25);
+}
+
+/* ==========================================================================
+   DOCUMENTO DO CURRÍCULO (FOLHA A4 ESTILIZADA)
+   ========================================================================== */
+.resume-wrapper {
+    padding: 30px 16px 60px 16px;
+    display: flex;
+    justify-content: center;
+}
+
+.resume-sheet {
+    width: 100%;
+    max-width: 900px;
+    background: var(--bg-sheet);
+    border-radius: var(--radius-md);
+    box-shadow: var(--shadow-sheet);
+    border: 1px solid var(--border-color);
+    padding: 42px 46px;
+    position: relative;
+    overflow: hidden;
+}
+
+/* Linha decorativa de destaque no topo */
+.resume-sheet::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 6px;
+    background: linear-gradient(90deg, #2563eb, #3b82f6, #06b6d4);
+}
+
+/* ==========================================================================
+   CABEÇALHO
+   ========================================================================== */
+.resume-header {
+    border-bottom: 2px solid var(--border-color);
+    padding-bottom: 24px;
+    margin-bottom: 28px;
+}
+
+.header-main {
+    display: flex;
+    align-items: center;
+    gap: 22px;
+    margin-bottom: 20px;
+}
+
+.avatar-badge {
+    width: 72px;
+    height: 72px;
+    min-width: 72px;
+    border-radius: var(--radius-md);
+    background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
+    color: #ffffff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: var(--font-heading);
+    font-weight: 800;
+    font-size: 26px;
+    letter-spacing: 1px;
+    box-shadow: 0 4px 10px rgba(15, 23, 42, 0.15);
+}
+
+.header-text {
+    flex: 1;
+}
+
+.candidate-name {
+    font-family: var(--font-heading);
+    font-size: 28px;
+    font-weight: 800;
+    color: var(--primary);
+    line-height: 1.15;
+    letter-spacing: -0.5px;
+    margin-bottom: 4px;
+}
+
+.candidate-title {
+    font-family: var(--font-heading);
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--accent);
+    letter-spacing: 0.2px;
+    margin-bottom: 6px;
+}
+
+.candidate-tagline {
+    font-size: 13px;
+    color: var(--text-muted);
+    max-width: 650px;
+    line-height: 1.45;
+}
+
+/* Grade de Contatos */
+.contact-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 10px 16px;
+    background: var(--bg-card);
+    padding: 14px 18px;
+    border-radius: var(--radius-sm);
+    border: 1px solid var(--border-color);
+}
+
+.contact-item {
+    display: flex;
+    align-items: center;
+    gap: 9px;
+    color: var(--text-main);
+    text-decoration: none;
+    font-size: 12.5px;
+    font-weight: 500;
+    transition: color 0.15s ease;
+}
+
+a.contact-item:hover {
+    color: var(--accent);
+}
+
+.contact-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--accent);
+    flex-shrink: 0;
+}
+
+/* ==========================================================================
+   LAYOUT EM DUAS COLUNAS
+   ========================================================================== */
+.resume-body {
+    display: grid;
+    grid-template-columns: 1.4fr 1fr;
+    gap: 36px;
+}
+
+.section-card {
+    margin-bottom: 26px;
+}
+
+.section-card:last-child {
+    margin-bottom: 0;
+}
+
+.section-title {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-family: var(--font-heading);
+    font-size: 15px;
+    font-weight: 700;
+    color: var(--primary);
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+    margin-bottom: 14px;
+    padding-bottom: 6px;
+    border-bottom: 1.5px solid var(--border-color);
+}
+
+.section-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--accent);
+}
+
+/* Resumo Profissional */
+.summary-text {
+    font-size: 13.5px;
+    line-height: 1.65;
+    color: var(--text-main);
+    text-align: justify;
+}
+
+/* Timeline & Projetos */
+.timeline {
+    position: relative;
+    padding-left: 18px;
+    border-left: 2px solid var(--border-color);
+}
+
+.timeline-item {
+    position: relative;
+    margin-bottom: 22px;
+}
+
+.timeline-item:last-child {
+    margin-bottom: 0;
+}
+
+.timeline-item::before {
+    content: '';
+    position: absolute;
+    left: -24px;
+    top: 4px;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: #ffffff;
+    border: 2.5px solid var(--accent);
+}
+
+.timeline-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 8px;
+    flex-wrap: wrap;
+}
+
+.item-title {
+    font-family: var(--font-heading);
+    font-size: 14.5px;
+    font-weight: 700;
+    color: var(--primary);
+}
+
+.item-period {
+    font-size: 11.5px;
+    font-weight: 600;
+    color: var(--text-muted);
+}
+
+.item-subtitle {
+    font-size: 12.5px;
+    font-weight: 600;
+    color: var(--accent);
+    margin-bottom: 6px;
+}
+
+.item-description {
+    font-size: 13px;
+    color: var(--text-main);
+    margin-bottom: 8px;
+    line-height: 1.5;
+}
+
+.bullet-list {
+    list-style: none;
+    padding: 0;
+    margin-bottom: 10px;
+}
+
+.bullet-list li {
+    position: relative;
+    padding-left: 16px;
+    font-size: 12.5px;
+    color: var(--text-main);
+    margin-bottom: 4px;
+    line-height: 1.5;
+}
+
+.bullet-list li::before {
+    content: '›';
+    position: absolute;
+    left: 2px;
+    top: -1px;
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--accent);
+}
+
+.tech-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+}
+
+.tag {
+    font-size: 11px;
+    font-weight: 600;
+    padding: 2px 8px;
+    background: var(--bg-card);
+    color: var(--text-main);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-sm);
+}
+
+/* Diferenciais */
+.diff-grid {
+    display: grid;
+    gap: 10px;
+}
+
+.diff-item {
+    font-size: 12.5px;
+    line-height: 1.5;
+    background: var(--bg-card);
+    padding: 10px 14px;
+    border-radius: var(--radius-sm);
+    border-left: 3px solid var(--accent);
+    color: var(--text-main);
+}
+
+.diff-item strong {
+    color: var(--primary);
+}
+
+/* ==========================================================================
+   COLUNA LATERAL (FORMAÇÃO & HABILIDADES)
+   ========================================================================== */
+.education-list {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+}
+
+.edu-item {
+    background: var(--bg-card);
+    padding: 12px 14px;
+    border-radius: var(--radius-sm);
+    border: 1px solid var(--border-color);
+    position: relative;
+}
+
+.edu-item.highlight {
+    border-color: var(--accent-border);
+    background: var(--accent-subtle);
+}
+
+.edu-badge {
+    display: inline-block;
+    font-size: 10px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    color: var(--accent-dark);
+    background: rgba(37, 99, 235, 0.1);
+    padding: 2px 6px;
+    border-radius: var(--radius-sm);
+    margin-bottom: 4px;
+}
+
+.edu-badge.technical {
+    color: #0369a1;
+    background: #e0f2fe;
+}
+
+.edu-badge.basic {
+    color: #475569;
+    background: #f1f5f9;
+}
+
+.edu-title {
+    font-family: var(--font-heading);
+    font-size: 13.5px;
+    font-weight: 700;
+    color: var(--primary);
+    line-height: 1.3;
+}
+
+.edu-inst {
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--text-muted);
+    margin-bottom: 4px;
+}
+
+.edu-focus {
+    font-size: 11.5px;
+    color: var(--text-main);
+    line-height: 1.45;
+}
+
+/* Habilidades Técnicas */
+.skills-group {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.skill-group-title {
+    font-size: 11.5px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.6px;
+    color: var(--text-muted);
+    margin-bottom: -4px;
+}
+
+.skills-pill-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+}
+
+.skill-pill {
+    font-size: 12px;
+    font-weight: 600;
+    padding: 4px 10px;
+    background: #ffffff;
+    color: var(--primary);
+    border: 1px solid var(--border-highlight);
+    border-radius: var(--radius-full);
+    transition: all 0.15s ease;
+}
+
+.skill-pill:hover {
+    border-color: var(--accent);
+    color: var(--accent);
+}
+
+/* Habilidades Interpessoais */
+.soft-skills-list {
+    list-style: none;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.soft-skills-list li {
+    font-size: 12px;
+    line-height: 1.45;
+    color: var(--text-main);
+    position: relative;
+    padding-left: 14px;
+}
+
+.soft-skills-list li::before {
+    content: '•';
+    position: absolute;
+    left: 2px;
+    color: var(--accent);
+    font-weight: bold;
+}
+
+/* Idiomas */
+.language-item {
+    background: var(--bg-card);
+    padding: 8px 12px;
+    border-radius: var(--radius-sm);
+    border: 1px solid var(--border-color);
+}
+
+.lang-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.lang-name {
+    font-weight: 700;
+    font-size: 12.5px;
+    color: var(--primary);
+}
+
+.lang-level {
+    font-size: 11.5px;
+    color: var(--text-muted);
+    font-weight: 500;
+}
+
+/* Toast de Notificação */
+.toast {
+    position: fixed;
+    bottom: 24px;
+    right: 24px;
+    background: var(--primary);
+    color: #ffffff;
+    padding: 12px 20px;
+    border-radius: var(--radius-sm);
+    font-size: 13px;
+    font-weight: 500;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+    transform: translateY(100px);
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    z-index: 999;
+}
+
+.toast.show {
+    transform: translateY(0);
+    opacity: 1;
+    visibility: visible;
+}
+
+/* ==========================================================================
+   CONFIGURAÇÃO ESPECIAL PARA IMPRESSÃO & EXPORTAÇÃO EM PDF (A4)
+   ========================================================================== */
+@media print {
+    @page {
+        size: A4 portrait;
+        margin: 10mm 12mm 10mm 12mm;
+    }
+
+    html, body {
+        background: #ffffff !important;
+        color: #0f172a !important;
+        font-size: 12px !important;
+        line-height: 1.4 !important;
+        margin: 0 !important;
+        padding: 0 !important;
+        -webkit-print-color-adjust: exact !important;
+        print-color-adjust: exact !important;
+    }
+
+    .no-print {
+        display: none !important;
+    }
+
+    .resume-wrapper {
+        padding: 0 !important;
+        margin: 0 !important;
+    }
+
+    .resume-sheet {
+        box-shadow: none !important;
+        border: none !important;
+        padding: 0 !important;
+        max-width: 100% !important;
+        width: 100% !important;
+    }
+
+    .resume-sheet::before {
+        display: none;
+    }
+
+    .resume-header {
+        margin-bottom: 16px !important;
+        padding-bottom: 14px !important;
+    }
+
+    .candidate-name {
+        font-size: 24px !important;
+    }
+
+    .candidate-title {
+        font-size: 13px !important;
+    }
+
+    .contact-grid {
+        padding: 8px 12px !important;
+        gap: 6px 12px !important;
+        background: #f8fafc !important;
+        border: 1px solid #e2e8f0 !important;
+    }
+
+    .contact-item {
+        font-size: 11px !important;
+    }
+
+    .resume-body {
+        gap: 22px !important;
+    }
+
+    .section-card {
+        margin-bottom: 16px !important;
+        page-break-inside: avoid;
+    }
+
+    .section-title {
+        font-size: 13px !important;
+        margin-bottom: 8px !important;
+        padding-bottom: 4px !important;
+    }
+
+    .timeline-item {
+        margin-bottom: 14px !important;
+        page-break-inside: avoid;
+    }
+
+    .edu-item {
+        padding: 8px 10px !important;
+        margin-bottom: 8px !important;
+        page-break-inside: avoid;
+    }
+
+    .diff-item {
+        padding: 6px 10px !important;
+    }
+
+    .skill-pill {
+        padding: 2px 7px !important;
+        font-size: 10.5px !important;
+    }
+}
+
+/* ==========================================================================
+   RESPONSIVIDADE (DISPOSITIVOS MÓVEIS & TABLETS)
+   ========================================================================== */
+@media (max-width: 768px) {
+    .action-bar-container {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .action-buttons {
+        width: 100%;
+    }
+
+    .action-buttons .btn {
+        flex: 1;
+        justify-content: center;
+    }
+
+    .resume-sheet {
+        padding: 24px 18px;
+    }
+
+    .header-main {
+        flex-direction: column;
+        text-align: center;
+        gap: 14px;
+    }
+
+    .candidate-name {
+        font-size: 24px;
+    }
+
+    .contact-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .resume-body {
+        grid-template-columns: 1fr;
+        gap: 24px;
+    }
+}
+
